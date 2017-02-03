@@ -21,7 +21,7 @@ import userinterface.ViewFactory;
 //==============================================================
 public class Book extends EntityBase implements IView
 {
-	private static final String myTableName = "Account";
+	private static final String myTableName = "Book";
 
 	protected Properties dependencies;
 
@@ -29,9 +29,9 @@ public class Book extends EntityBase implements IView
 
 	private String updateStatusMessage = "";
 	
-	
 	// constructor for this class
-	//----------------------------------------------------------
+	public Properties(){}
+
 	public Book(String accountNumber)
 		throws InvalidPrimaryKeyException
 	{
