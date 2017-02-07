@@ -1,0 +1,64 @@
+public static void propToString(Properties prop){
+  StringWriter writer = new StringWriter();
+  prop.list(new PrintWriter(writer));
+  return writer.getBuffer().toString();
+} 
+
+public static void insertPatron(){
+  Properties patron = new Properties();
+  Scanner sc = new Scanner(System.in);
+  
+  System.out.println("Enter Patron's name.");
+  String nameValue = sc.nextLine();
+  patron.setProperty("name", nameValue);
+  
+  System.out.println("Enter Patron's address.");
+  String addressValue = sc.nextLine();
+  patron.setProperty("address", addressValue);
+    
+  System.out.println("Enter Patron's city.");
+  String cityValue = sc.nextLine();
+  patron.setProperty("city", cityValue);
+  
+  System.out.println("Enter Patron's state code.");
+  String stateCodeValue = sc.nextLine();
+  patron.setProperty("stateCode", stateCodeValue);
+  
+  System.out.println("Enter Patron's zip code.");
+  String zipCodeValue = sc.nextLine();
+  patron.setProperty("zip",zipCodeValue);
+  
+  System.out.println("Enter Patron's email.");
+  String emailValue = sc.nextLine();
+  patron.setProperty("email", emailValue);
+  
+  System.out.println("Enter Patron's date of birth.");
+  String dateOfBirthValue = sc.nextLine();
+  patron.setProperty("dateOfBirth", dateOfBirthValue);
+  
+  System.out.println("Enter Patron status.");
+  String statusValue = sc.nextLine();
+  patron.setProperty("status", statusValue); 
+  
+  Patron persistantPatron = new Patron(patron);
+  persistantPatron.update();
+}
+
+public static void searchPatronYounger(){
+  Scanner sc = new Scanner(System.in);
+  
+  System.out.println("Enter a date.");
+  String date = sc.nextLine();
+  
+  pc PatronCollection = new PatronCollection();
+  pc = findPatronsYoungerThan(date);
+  
+  Iterator it = pc.patCollection.iterator();
+  
+  while (it.hasNext()){
+    String resultString = propToString(it.next());
+    System.out.println(resultString);
+  }
+}
+
+public static void searchPatronZip()
