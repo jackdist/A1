@@ -1,0 +1,32 @@
+import java.util.Properties;
+import java.util.Vector;
+
+public class PatronCollection extends EntityBase{
+	
+	Vector<Properties> patCollection;
+	
+	public PatronCollection(){
+		patCollection = new Vector<Properties>();
+	}
+	
+	public void findPatronsOlderThan(String date){
+		String sqlQuery = "SELECT * FROM Patron WHERE dateOfBirth < " + date + ";";
+		patCollection = getSelectQueryResult(sqlQuery);
+	}
+	
+	public void findPatronsYoungerThan(String date){
+		String sqlQuery = "SELECT * FROM Patron WHERE dateOfBirth > " + date + ";";
+		patCollection = getSelectQueryResult(sqlQuery);
+	}
+	
+	public void findPatronsAtZipCode(String zip){
+		String sqlQuery = "SELECT * FROM Patron WHERE zip = " + zip + ";";
+		patCollection = getSelectQueryResult(sqlQuery);
+	}
+	
+	public void findPatronsWithNameLike(String name){
+		String sqlQuery = "SELECT * FROM Patron WHERE name LIKE '%" + name + "%';";
+		patCollection = getSelectQueryResult(sqlQuery);
+	}
+	
+}
