@@ -56,9 +56,27 @@ public static void searchPatronYounger(){
   Iterator it = pc.patCollection.iterator();
   
   while (it.hasNext()){
-    String resultString = propToString(it.next());
-    System.out.println(resultString);
+    String result = propToString(it.next());
+    System.out.println(result);
   }
 }
 
-public static void searchPatronZip()
+public static void searchPatronZip(){
+  Scanner sc = new Scanner(System.in);
+  
+  System.out.println("Enter a zip code.");
+  String zip = sc.nextLine();
+  
+  pc PatronCollection = new PatronCollection();
+  pc = findPatronsAtZipCode(zip);
+  
+  Iterator it = pc.patCollection.iterator();
+  
+  while (it.hasNext()){
+    String result = propToString(it.next());
+    System.out.println(result);
+    
+  }
+}
+
+}
