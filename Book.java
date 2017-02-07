@@ -21,24 +21,23 @@ import userinterface.ViewFactory;
 //==============================================================
 public class Book extends EntityBase implements IView
 {
-	private static final String myTableName = "Book";
+	private static final String myTableName = "book";
 
 	protected Properties dependencies;
 
 	// GUI Components
 
 	private String updateStatusMessage = "";
-	
-	// constructor for this class
-	public Properties(){}
 
-	public Book(String accountNumber)
+	// constructor for this class
+	//----------------------------------------------------------
+	public Book(String bookId)
 		throws InvalidPrimaryKeyException
 	{
 		super(myTableName);
 
 		setDependencies();
-		String query = "SELECT * FROM " + myTableName + " WHERE (AccountNumber = " + accountNumber + ")";
+		String query = "SELECT * FROM " + myTableName + " WHERE (bookId = " + bookId + ")";
 
 		Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -50,20 +49,20 @@ public class Book extends EntityBase implements IView
 			// There should be EXACTLY one account. More than that is an error
 			if (size != 1)
 			{
-				throw new InvalidPrimaryKeyException("Multiple accounts matching id : "
-					+ accountNumber + " found.");
+				throw new InvalidPrimaryKeyException("Multiple book matching id : "
+					+ bookId + " found.");
 			}
 			else
 			{
 				// copy all the retrieved data into persistent state
-				Properties retrievedAccountData = allDataRetrieved.elementAt(0);
+				Properties retrievedBookData = allDataRetrieved.elementAt(0);
 				persistentState = new Properties();
 
-				Enumeration allKeys = retrievedAccountData.propertyNames();
+				Enumeration allKeys = retrievedBookData.propertyNames();
 				while (allKeys.hasMoreElements() == true)
 				{
 					String nextKey = (String)allKeys.nextElement();
-					String nextValue = retrievedAccountData.getProperty(nextKey);
+					String nextValue = retrievedBookData.getProperty(nextKey);
 
 					if (nextValue != null)
 					{
@@ -76,8 +75,8 @@ public class Book extends EntityBase implements IView
 		// If no account found for this user name, throw an exception
 		else
 		{
-			throw new InvalidPrimaryKeyException("No account matching id : "
-				+ accountNumber + " found.");
+			throw new InvalidPrimaryKeyException("No book matching id : "
+				+ bookId + " found.");
 		}
 	}
 
@@ -235,20 +234,20 @@ public class Book extends EntityBase implements IView
 	{
 		try
 		{
-			if (persistentState.getProperty("AccountNumber") != null)
+			if (persistentState.getProperty("bookId") != null)
 			{
 				Properties whereClause = new Properties();
-				whereClause.setProperty("AccountNumber",
-				persistentState.getProperty("AccountNumber"));
+				whereClause.setProperty("bookId",
+				persistentState.getProperty("bookId"));
 				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Account data for account number : " + persistentState.getProperty("AccountNumber") + " updated successfully in database!";
+				updateStatusMessage = "Book data for bookId : " + persistentState.getProperty("bookId") + " updated successfully in database!";
 			}
 			else
 			{
 				Integer accountNumber =
 					insertAutoIncrementalPersistentState(mySchema, persistentState);
-				persistentState.setProperty("AccountNumber", "" + accountNumber.intValue());
-				updateStatusMessage = "Account data for new account : " +  persistentState.getProperty("AccountNumber")
+				persistentState.setProperty("bookId", "" + accountNumber.intValue());
+				updateStatusMessage = "Book data for new book : " +  persistentState.getProperty("bookId")
 					+ "installed successfully in database!";
 			}
 		}
